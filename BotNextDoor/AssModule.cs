@@ -30,12 +30,12 @@ namespace BotNextDoor
 
             await using var pipingStream = new MemoryStream();
             string ffmpegBinaryPath = IsWindows
-                ? "windows"
+                ? "./ffmpeg_binaries/windows"
                 : IsLinux
-                    ? "linux"
+                    ? "ffmpeg" // must be installed in target OS
                     : throw new Exception("unknown ass");
             
-            await Cli.Wrap(Path.Combine("./ffmpeg_binaries", ffmpegBinaryPath))
+            await Cli.Wrap(ffmpegBinaryPath)
                 .WithArguments(" -hide_banner -loglevel panic -i pipe:0 -ac 2 -f s16le -ar 48000 pipe:1")
                 .WithStandardInputPipe(PipeSource.FromStream(youtubeStream))
                 .WithStandardOutputPipe(PipeTarget.ToStream(pipingStream))
