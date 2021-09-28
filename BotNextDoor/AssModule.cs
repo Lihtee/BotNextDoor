@@ -18,7 +18,6 @@ namespace BotNextDoor
         [Summary("Join ass")]
         public async Task AssAsync(string ass)
         {
-            
             var youtubeClient = new YoutubeClient();
             var streamManifest = await youtubeClient.Videos.Streams.GetManifestAsync(VideoId.Parse(ass));
             var streamInfo = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
@@ -42,7 +41,6 @@ namespace BotNextDoor
             {
                 await Console.Error.WriteLineAsync("im broken");
             }
-            
         }
     }
 }

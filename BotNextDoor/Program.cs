@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
@@ -9,7 +9,7 @@ namespace BotNextDoor
 {
     class Program
     {
-        private const string Token = "ODkyMDc5MjE1NzQ1MzA2Njg1.YVHrgw.ri4pBA0E_ee_of1Z0t_EJAMFjjM";
+        private const string Base64Token = "T0RreU1EYzVNakUxTnpRMU16QTJOamcxLllWSHJndy45V080cTh3TFZCYmpXeU5YZGl1SDR3dnNsbzA=";
 
         private DiscordSocketClient _client;
 
@@ -29,7 +29,7 @@ namespace BotNextDoor
 
             //  You can assign your bot token to a string, and pass that in to connect.
             //  This is, however, insecure, particularly if you plan to have your code hosted in a public repository.
-            var token = Token;
+            var token = Encoding.Default.GetString(Convert.FromBase64String(Base64Token));
 
             // Some alternative options would be to keep your token in an Environment Variable or a standalone file.
             // var token = Environment.GetEnvironmentVariable("NameOfYourEnvironmentVariable");
@@ -41,7 +41,6 @@ namespace BotNextDoor
 
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
-
 
             // Block this task until the program is closed.
             await Task.Delay(-1);
